@@ -49,6 +49,14 @@ Cheatsheet for HS-2022 and FS-2023
 
 
 
+
+
+
+
+
+
+
+
 \newpage
 \fancyhead[C]{Graph Theory 1}
 \subsection*{Graphs}
@@ -66,7 +74,7 @@ A \keydef{complete} graph connects all vertices, ie. for every distinct $v,u \in
 
 A \keydef{directed} graph has only directed edges. In contrast, an \keydef{undirected} graph has bidirectional edges, ie. for every $(v,u)\in E$ there exists $(u,v)\in E$.\\
 
-A graph is \keydef{(strongly) connected}, if there is a \nolinebreak(directed) path between every $u,v \in V$. Otherwise, the graph is \keydef{disconnected}.\\
+A graph is \keydef{(strongly) connected}, if there is a \nolinebreak(directed) path between every $u,v \in V$. Otherwise, the graph is \keydef{disconnected}. Additionally, a directed graph is \keydef{weakly connected} if the undirected superset of its edges forms a connected graph.\\
 
 An undirected, connected graph with $|V| \le |E|$ always has cycles.\\
 
@@ -132,7 +140,7 @@ A topological ordering can be found either using \texttt{Kahns algorithm}\footno
   \caption*{On the right a possible topological ordering, obtained from the reverse DFS post-order  of the left graph. }
 \end{figure}
 
-\hrulefill %TODO separators?
+\hrulefill %TODO separator
 
 \subsection*{Graph traversal}
 \keydef{Graph traversal} is the process of visiting each vertex in a graph. \keydef{Tree traversal} is a special case, applicable to trees.
@@ -205,14 +213,12 @@ In code, DFS should be implemented iterativly. Iterative implementations are pre
 \end{algorithm}
 
 \subsubsection*{Applications of DFS}
-DFS is useful in a wide range of applications.
 \begin{itemize}[noitemsep, label=-]
   \item Finding bridges and articulation points
   \item Topological sorting
   \item Finding connected components
   \item Cycle detection
 \end{itemize}
-
 \subsubsection*{Edge types}
 
 To further understand DFS, \keydef{pre-} and \keydef{post-numbers} are introduced. The \keydef{postorder} of a DFS is given by the descending order of post-number. With the help of these numbers, one can identify special edges:
@@ -232,9 +238,6 @@ To further understand DFS, \keydef{pre-} and \keydef{post-numbers} are introduce
     \caption{DFS from vertex $a$}
   \end{subfigure}
 \end{figure}
-\vfill % TODO Remove
-
-%Further less abstract uses include parsing and maze generation.
 
 \hrulefill % TODO separator
 
@@ -246,30 +249,35 @@ To further understand DFS, \keydef{pre-} and \keydef{post-numbers} are introduce
 \end{itemize}
 
 Each method can be implemented recursively or iteratively based on the use case.
+\vfill
 
-\hrulefill % TODO separator
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% NEW PAGE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\subsection*{Eulerian paths and cycles}
+An \keydef{Eulerian path}\texttt{/}\keydef{Eulerian cycle} is a trail/cycle in which every edge of the graph is visited exactly once. A graph is called \keydef{Eulerian}, if and only if it contains a Eulerian cycle.\\
 
-
-\subsection*{Euler and Hamilton}
+Eulerian paths/cycles are defined for both undirected and directed graphs. In an undirected, connected graph:
 \begin{align*}
-	\text{\keydef{Eularian} := }& \text{every edge is visited exactly once} \\
-	\text{\keydef{Hamiltonian} := }& \text{every vertex is visited exactly once}
-\end{align*}
-Eularian paths/cycles are defined for both undirected and directed graphs. In an undirected, connected graph:
-\begin{align*}
-	\text{$\exists$ \keydef{Eularian cycle}} \Longleftrightarrow & \text{ Every vertex has even degree} \\
-	\text{$\exists$ \keydef{Eularian path}} \Longleftrightarrow & \text{ $2$ or $0$ vertices have odd degree}
+	\text{$\exists$ \key{Eulerian cycle}} \Longleftrightarrow & \text{ Every vertex has even degree} \\
+	\text{$\exists$ \key{Eulerian path}} \Longleftrightarrow & \text{ $2$ or $0$ vertices have odd degree}
 \end{align*}	
 
-Determining the existence of Hamiltonian paths/cycles in general graphs is shown to be \texttt{NP complete} and thus does not have a polynomial time solution\footnote{Under the assumption that $P \ne NP$}.
+In a directed, weakly connected\footnote{Note that the existence of a Eulerian cycle in a directed graph implies that the graph is \textit{strongly connected}} graph:
 
-\subsubsection*{Constructing Eularian cycles}
-Eularian cycles can be constructed using Hierholzer's Algorithm in $\oh{|E|}$ time.
+\bigskip
+$\exists$ \key{Eulerian cycle} $\Longleftrightarrow$ $\forall v\in V \operatorname{inDeg(v)}=\operatorname{outDeg(v)}$ 
+
+\smallskip
+$\exists$ \key{Eulerian path} $\Longleftrightarrow$ There exist at most 2 vertices such that $| \operatorname{inDeg(v)}-\operatorname{outDeg(v)}| = 1$. For all other vertices $\operatorname{inDeg(v)} =\operatorname{outDeg(v)}$
+
+\subsubsection*{Constructing Eulerian cycles}
+Eulerian cycles can be constructed using Hierholzer's Algorithm in $\oh{|E|}$ time.
 \begin{enumerate}[noitemsep]
-	\item Iteratively calculate cycles: 
-	\item Merge cycles:
-	\item Repeat until all vertices visited
+	\item \textbf{Iteraitvely calculate cycles}: Start from any vertex $v$ and traverse the graph, following a trail of unexplored edges until returning to $v$. 
+	\item \textbf{Merge cycles}: We merge the new found cycle into the solution.
+	\item \textbf{Repeat} until all cycles are merged.
 \end{enumerate}
+After executing the algorithm and under the assumption that the graph is Eulerian, we are left with an Eulerian cycle.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% NEW PAGE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage

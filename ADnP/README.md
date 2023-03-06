@@ -60,8 +60,8 @@
   - [x] Prim
   - [x] Boruvka
 - [x] Eulerian paths and cycles
-  - [ ] Determining existence
-  - [ ] Hierholzers algorithm
+  - [x] Determining existence
+  - [x] Hierholzers algorithm
 - [ ] Hamiltonian paths and cycles
   - [ ] Helpful theorems
   - [ ] "efficiently" finding them
