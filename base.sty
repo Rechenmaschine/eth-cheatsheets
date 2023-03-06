@@ -1,0 +1,97 @@
+\RequirePackage{xcolor}
+\RequirePackage{hyperref}
+
+
+%%%%%%%%%%%%%%%%%%%%% Commands %%%%%%%%%%%%%%%%%%%%%%%%
+
+% Define a new command \key that takes one argument, the keyword to link to the definition.
+\newcommand{\key}[1]{\hyperlink{#1}{\texttt{#1}}}
+\newcommand{\keydef}[1]{\hypertarget{#1}{\textcolor{orange}{\textbf{\texttt{#1}}}}}
+
+\newcommand{\version}[1]{\gdef\version{#1}}
+
+\newcommand{\oh}[1]{\mathcal{O}(#1)}
+
+\newcommand{\license}{
+    This document and it's graphics are licensed under \texttt{CC~BY-SA~4.0}. It may be shared, adapted and used for any purpose, as long as appropriate attribution is given and any adaptations are shared under the same license.\\ 
+    \vspace{12pt}
+    The {\LaTeX} source code is available under \url{github.com/rechenmaschine/eth-cheatsheets}.\\
+    Feel free to contribute or submit issues there.
+}
+%%%%%%%%%%%%%%%%%%%% Variables %%%%%%%%%%%%%%%%%%%%%%%%
+
+\version{\twodigit{\day}.\twodigit{\month}.\the\year}
+
+\setlength\parindent{0pt}
+
+%%%%%%%%%%%%%%%%%%%% Packages %%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+% Algorithm stuff
+\RequirePackage{algorithm}
+\RequirePackage[noend]{algpseudocode}
+\newcommand{\KwTo}{\textbf {to} }
+
+
+% Better lists
+\RequirePackage{enumitem}
+\RequirePackage{pifont}
+
+
+\RequirePackage[many]{tcolorbox}
+
+% a base set, that is then customised
+\tcbset {
+  base/.style={
+    boxrule=0mm,
+    leftrule=0mm,
+    left=1.75mm,
+    arc=0mm, 
+    fonttitle=\bfseries, 
+    colbacktitle=black!10!white, 
+    coltitle=black, 
+    toptitle=0.75mm, 
+    bottomtitle=0.25mm,
+    title={#1}
+  }
+}
+
+\definecolor{brandblue}{rgb}{0.34, 0.7, 1}
+\newtcolorbox{mainbox}[1]{
+  colframe=gray, 
+  base={#1}
+}
+
+\usepackage{xcolor} % Color support
+\usepackage{lmodern} % Modern look?
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+
+\usepackage{lipsum} % Dummy text
+\usepackage{blindtext}
+
+% Multiple columns
+\usepackage{multicol}
+\setlength{\columnseprule}{0.4pt}
+
+% Header and footer
+\usepackage{fancyhdr} 
+
+% For nice lists
+\usepackage{enumitem}
+\usepackage{pifont}
+
+% Necessary for graphics
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+\usepackage{float}
+
+% MISC
+\RequirePackage{datetime} % Date and time formatting
+\RequirePackage{hyperref} % Hyperlinks
+\RequirePackage{enumitem} % Better lists
+\RequirePackage{caption} % Better captions
+\RequirePackage{titling} % Access to \Author
