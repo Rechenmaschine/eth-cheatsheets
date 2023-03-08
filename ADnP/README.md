@@ -51,10 +51,10 @@
 - [ ] Graph colouring?
 - [ ] Blocks
 - [x] Topological ordering
-- [ ] Depth first search
+- [x] Depth first search
   - [x] Implementations
   - [x] Applications
-  - [ ] Edge types
+  - [x] Edge types
 - [x] Minimum spanning trees
   - [x] Kruskal
   - [x] Prim

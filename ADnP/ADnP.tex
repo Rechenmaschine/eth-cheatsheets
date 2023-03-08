@@ -12,9 +12,7 @@
 \begin{document}
 \begin{multicols*}{4}{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% AUTHORS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\author{
-	Louis Schell
-}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% FRONT MATTER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TITLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -37,24 +35,15 @@ Cheatsheet for HS-2022 and FS-2023
 
 \vfill
 
-{\large{\textbf{Contributers}}}
+{\large{\textbf{Contributors}}}
 
 \smallskip
 
-\theauthor
+\input{CONTRIBUTORS.txt}
 
 \end{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% END FRONT MATTER %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-
-
-
-
-
-
 
 
 \newpage
@@ -231,12 +220,17 @@ To further understand DFS, \keydef{pre-} and \keydef{post-numbers} are introduce
 
 \begin{figure}[H]
 \centering
-  \begin{subfigure}[b]{0.45\columnwidth}
+  \begin{subfigure}[c]{0.4\columnwidth}
     \centering
-    \includegraphics[width=1\textwidth]{images/edge-types.png}
+    \includegraphics[width=1\textwidth]{images/edge-types-markup.png}
     \label{fig:image4}
-    \caption{DFS from vertex $a$}
   \end{subfigure}
+  \begin{subfigure}[c]{0.58\columnwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{images/interval-graph.jpeg}
+    \label{fig:image5}
+  \end{subfigure}
+  \caption*{Graph and intervals for DFS from vertex $A$}
 \end{figure}
 
 \hrulefill % TODO separator
