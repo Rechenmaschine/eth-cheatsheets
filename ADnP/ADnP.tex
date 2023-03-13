@@ -2,6 +2,8 @@
 
 \usepackage[margin=1.5cm, left=.75cm, right=.75cm,columnsep=1cm]{geometry} % Set margins and padding
 \usepackage{../base}
+\usepackage{ dsfont }
+
 
 % Header and footer
 \pagestyle{fancy}
@@ -272,6 +274,101 @@ Eulerian cycles can be constructed using Hierholzer's Algorithm in $\oh{|E|}$ ti
 	\item \textbf{Repeat} until all cycles are merged.
 \end{enumerate}
 After executing the algorithm and under the assumption that the graph is Eulerian, we are left with an Eulerian cycle.
+
+\hrulefill %TODO separator
+
+\subsection*{Hamiltonian paths and cycles}
+A \keydef{Hamiltonian path} is a path through all vertices of a graph. A graph is called \keydef{Hamiltonian} if there exists a \keydef{Hamiltonian cycle}.
+
+Common examples of Hamiltonian graphs include:
+\begin{itemize}[noitemsep, label=-]
+	\item Icosahedral graph
+	\item Complete graph with $n \ge 3$
+	\item A grid with $n \times m$ vertices where $nm$ is even.
+\end{itemize}
+A Peterson graph is \textit{not} Hamiltonian.\\ In general it holds that every Hamiltonian graph is 2-connected.
+\vfill %TODO
+
+\subsubsection*{Determining Hamiltonicity}
+Finding out whether a graph is Hamiltonian is very difficult. In fact, for general graphs this problem is \textbf{NP-Complete}. However, for some graphs it is possible to make statements.\\
+\begin{mainbox}{Dirac's theorem}
+A simple graph with $n \ge 3$ vertices is Hamiltonian if every vertex has degree $\frac{n}{2}$ or greater.
+\end{mainbox}
+Dirac is very helpful in many exercises. Further, it also implies with the pigeonhole principle that almost complete graphs with $|E| \ge \binom{n}{2}- \lfloor \frac{n}{2} \rfloor +1$ contain a hamiltonian cycle.\\
+\begin{mainbox}{Ore's theorem}
+A simple graph with $n \ge 3$ vertices is Hamiltonian if for every pair of non-adjacent vertices, the sum of their degrees is $n$ or greater.
+\end{mainbox}
+
+\subsubsection*{Calculating Hamiltonicity}
+A trivial brute-forces solution requires $\oh{n!}$ time. However, it is possible to find a much better algorithm which runs in $\oh{2^n n^{2.81}\operatorname{log}n}$ and requires $\oh{n^2}$ space, making it viable for small inputs.
+
+
+
+
+
+\begin{algorithm}[H]
+\caption{Counting Hamiltonian Cycles}
+\begin{algorithmic}[1]
+\vspace{3pt}
+\Statex $W_S:=$ count of paths of length $n$ from $s=1$ to $s=1$ that don't visit an vertex in $S$
+\vspace{5pt}
+\Procedure{Count}{$G=([n], E)$}
+\State $s \gets 1$ \Comment{Chosen arbitrarily}
+\State $Z \gets |W_{\emptyset}|$ 
+\For{$S \subseteq [n]$ \text{with $s\not \in S$ and $S \ne \emptyset$}}
+	\State Calculate $|W_S|$ with Adj.matrix of $G[V\backslash S]$
+	\State $Z \gets Z + (-1)^{|S|} |W_S|$
+\EndFor
+\State
+\Return $\tfrac{Z}{2}$ \Comment{Hamiltonian cycles in $G$}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+%%%TODODOODODODODO%%%
+
+\vfill %TODO
+
+\subsection*{Graph colouring}
+
+A \keydef{graph colouring} in a graph $G=(V,E)$ with $k$ colours is a mapping $c: V \rightarrow [\operatorname{k}]$ such that $ c(u) \ne c(v) $ for all $(u,v)\in E$.\\
+
+Graph colouring is an important problem in graph theory, useful for scheduling timetables, register allocation and even in solving Sudoko puzzles.\\
+
+The \keydef{chromatic number} $\chi(G)$ of a graph is the minimum number of colours needed for a graph colouring. 
+$$\chi(G) \le k \Longleftrightarrow \text{$G$ is $k$-partite} $$
+
+For general $k\ge3$, determining whether a colouring exists is \textbf{NP-Complete}. There are however special cases. Most notably:
+\begin{itemize}[label=$\diamond$]
+	\item \textbf{Bipartite graphs} can be coloured with 2 colours. A colouring can be determined in linear time using DFS or BFS.
+	\item \textbf{Planar graphs} can be coloured using at most 4 colours. A colouring can be found in  $\oh{n^2}$.
+	\item \textbf{Trees} can be coloured using at most 2 colours in linear time.
+\end{itemize}
+
+More general graphs require exponential time for determining a colouring. Approximations are \textit{not} very good, since for every $\varepsilon \ge 0$ it is \textbf{NP-hard} to find an $n^{1-\varepsilon}$ approximation.\\
+
+\begin{algorithm}[H]
+\caption{Greedy Graph Colouring}
+\begin{algorithmic}[1]
+\Procedure{GreedyColouring}{$G$}
+\State choose $v_1,...,v_n$ as an arbitrary vertex sequence
+\State $c[v_1] \gets 1$
+\For{$i=2..n$}
+	\State $c[v_i] \gets$ smallest colour not adjacent to $v_i$
+\EndFor
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+For every vertex sequence $V=\{v_1,...,v_n\}$ the greedy algorithm above needs at most $\Delta(G)+1$ colours, where $\Delta(G)$ is the maximum degree in $G$. However, there exists a vertex sequence such that the algorithm finds a solution with $\chi(G)$ colours.
+
+
+
+%\gets \operatorname{min}\{k\in \mathds{N} \mid k\ne c(u) \text{ for all } u\in \textsc{N()} \}$
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% NEW PAGE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage

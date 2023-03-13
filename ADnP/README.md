@@ -61,17 +61,17 @@
 - [x] Eulerian paths and cycles
   - [x] Determining existence
   - [x] Hierholzers algorithm
-- [ ] Hamiltonian paths and cycles
-  - [ ] Helpful theorems
-  - [ ] "efficiently" finding them
+- [x] Hamiltonian paths and cycles
+  - [x] Helpful theorems
+  - [x] "efficiently" finding them
   - [ ] Gray codes
 - [ ] Perfect Matchings
   - [ ] Useful theorems
   - [ ] Augmenting paths
   - [ ] Gabow's algorithm
-- [ ] Graph Coloring
-  - [ ] Complexity
-  - [ ] Greedy coloring
+- [x] Graph Coloring
+  - [x] Complexity
+  - [x] Greedy coloring
 - [ ] Shortest paths
   - [ ] Dijkstra's algorithm
   - [ ] Bellman-fords algorithm
