@@ -48,7 +48,6 @@
 - [x] Definition of graphs
 - [x] Directed acyclic graphs (DAGs)
 - [ ] k-Connectivity
-- [ ] Graph colouring?
 - [ ] Blocks
 - [x] Topological ordering
 - [x] Depth first search
@@ -66,6 +65,13 @@
   - [ ] Helpful theorems
   - [ ] "efficiently" finding them
   - [ ] Gray codes
+- [ ] Perfect Matchings
+  - [ ] Useful theorems
+  - [ ] Augmenting paths
+  - [ ] Gabow's algorithm
+- [ ] Graph Coloring
+  - [ ] Complexity
+  - [ ] Greedy coloring
 - [ ] Shortest paths
   - [ ] Dijkstra's algorithm
   - [ ] Bellman-fords algorithm
