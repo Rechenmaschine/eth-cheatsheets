@@ -65,6 +65,9 @@
   - [x] Helpful theorems
   - [x] "efficiently" finding them
   - [ ] Gray codes
+- [x] Travelling Salesman Problem (TSP)
+  - [x] Heuristics
+  
 - [ ] Perfect Matchings
   - [ ] Useful theorems
   - [ ] Augmenting paths

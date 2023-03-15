@@ -3,6 +3,7 @@
 \usepackage[margin=1.5cm, left=.75cm, right=.75cm,columnsep=1cm]{geometry} % Set margins and padding
 \usepackage{../base}
 \usepackage{ dsfont }
+\usepackage{amssymb}
 
 
 % Header and footer
@@ -310,7 +311,7 @@ A trivial brute-forces solution requires $\oh{n!}$ time. However, it is possible
 \caption{Counting Hamiltonian Cycles}
 \begin{algorithmic}[1]
 \vspace{3pt}
-\Statex $W_S:=$ count of paths of length $n$ from $s=1$ to $s=1$ that don't visit an vertex in $S$
+\Statex $W_S:=$ count of paths of length $n$ from $s=1$ to $s=1$ that don't visit a vertex in $S$
 \vspace{5pt}
 \Procedure{Count}{$G=([n], E)$}
 \State $s \gets 1$ \Comment{Chosen arbitrarily}
@@ -344,6 +345,7 @@ For general $k\ge3$, determining whether a colouring exists is \textbf{NP-Comple
 	\item \textbf{Bipartite graphs} can be coloured with 2 colours. A colouring can be determined in linear time using DFS or BFS.
 	\item \textbf{Planar graphs} can be coloured using at most 4 colours. A colouring can be found in  $\oh{n^2}$.
 	\item \textbf{Trees} can be coloured using at most 2 colours in linear time.
+	\item \textbf{Graphs} withs $\chi(G)=3$ can be coloured with $\oh{\sqrt{|V|}}$ colours in $\oh{|V|+|E|}$ time.
 \end{itemize}
 
 More general graphs require exponential time for determining a colouring. Approximations are \textit{not} very good, since for every $\varepsilon \ge 0$ it is \textbf{NP-hard} to find an $n^{1-\varepsilon}$ approximation.\\
@@ -360,12 +362,52 @@ More general graphs require exponential time for determining a colouring. Approx
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
-For every vertex sequence $V=\{v_1,...,v_n\}$ the greedy algorithm above needs at most $\Delta(G)+1$ colours, where $\Delta(G)$ is the maximum degree in $G$. However, there exists a vertex sequence such that the algorithm finds a solution with $\chi(G)$ colours.
+For every vertex sequence $V=\{v_1,...,v_n\}$ the greedy algorithm above needs at most $\Delta(G)+1$ colours, where $\Delta(G)$ is the maximum degree in $G$. However, there exists a vertex sequence such that the algorithm finds a solution with $\chi(G)$ colours.\\
+\begin{mainbox}{Brook's theorem}
+If $G\ne K_n$, $G \ne C_{2n+1}$ and $G$ connected, then $G$ is colourable with $\Delta(G)$ colours in $\oh{|E|}$ time.
+\end{mainbox}
+
+\vfill %TODO
+
+\subsection*{Travelling Salesman Problem (TSP)}
+The \keydef{Travelling Salesman Problem} \keydef{(TSP)} is an \textbf{NP-Hard}\footnote{The decision version of TSP is \textbf{NP-complete}} combinatorial optimisation problem defined on a weighted, undirected graph, with the objective of finding the shortest Hamiltonian cycle.
+$$
+\min_{\text{$H$: Ham. cycle}} \sum_{e\in E(H)} l(e)
+$$
 
 
+\subsubsection*{2-Approximation}
+Let $G=(V,E)$ be a complete graph and $l(e)$ a metric weight function. We can give an approximation that is at most 2 times worse than the optimal Hamiltonian cycle in $\oh{|E| \operatorname{log}|V|}$ time with the following algorithm:
 
-%\gets \operatorname{min}\{k\in \mathds{N} \mid k\ne c(u) \text{ for all } u\in \textsc{N()} \}$
+\begin{enumerate}[noitemsep]
+	\item Calculate a minimum spanning tree $T$ of $G$
+	\item Double all edges of $T$
+	\item Compute a Eulerian tour $E$ in $T$
+	\item Truncate $E$: skip vertices used more than once and connect them via. a different edge. A shortcut is always possible because of the triangle inequality.
+\end{enumerate}
 
+This approximation guarantees $\operatorname{cost}(C)\le 2 \cdot \operatorname{cost}(OPT)$.
+
+\subsubsection*{Christofide's algorithm}
+\keydef{Christofide's algorithm} is an approximation scheme for metric TSP. Let $G=(V,E)$ be a complete graph and $l(e)$ a metric weight function. Christofide's algorithm yields a Hamiltonian cycle at most 1.5 times worse than the optimal Hamiltonian cycle.
+
+\begin{enumerate}[noitemsep]
+	\item Calculate a minimum spanning tree $T$ of $G$\\
+	\textcolor{purple}{\small{\hspace{15pt}$l(T) \le opt(k_n, l)$}}
+	\item Find a minimal matching $M$ for all vertices with uneven degree.\\
+	\textcolor{purple}{\small{\hspace{15pt}$l(M) \le \frac{1}{2} opt(k_n, l)$}}
+	\item{Find Eulerian tour $W$}\\
+	\textcolor{purple}{\small{\hspace{15pt}$l(W) = l(T) + l(M) \le \frac{3}{2} opt(K_n,l)$}}
+	\item Traverse $W$ with shortcuts, such that every vertex is visited only once $\rightsquigarrow$ Hamiltonian cycle $C$\\
+	\textcolor{purple}{\small{\hspace{15pt}$l(C) \le l(W) = l(T) + l(M) \le \frac{3}{2} opt(K_n,l)$}}
+\end{enumerate}
+
+This approximation guarantees $\operatorname{cost}(C)\le \frac{3}{2} \cdot \operatorname{cost}(OPT)$.
+
+\subsection*{Human approximation}
+Humans can give approximations for TSP in near-linear-time, varying from 1\% less efficient for graphs with 10-20 nodes to 11\% less efficient for those with 120 nodes. Research is still being done, but results suggest that computer performance may be improved through understanding the heuristics humans use.
+
+\vfill %TODO
 
 
 
